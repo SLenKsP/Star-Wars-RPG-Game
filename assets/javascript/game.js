@@ -65,7 +65,7 @@ var gameObj = {
       var img = $("<img class = 'charImg'>");
       img.attr("src", this.characters[i].imgSrc);
       var score = $("<p>" + this.characters[i].initScore + "</p>");
-      $("#mainCharSection").append(charSection);
+      $("#mainCharSection").hide().fadeIn(1000).append(charSection).hide().fadeIn(2000);
       charSection.append(name);
       charSection.append(img);
       charSection.append(score);
