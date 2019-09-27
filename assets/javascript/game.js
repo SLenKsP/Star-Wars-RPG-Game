@@ -57,7 +57,7 @@ var gameObj = {
       counterAttack: 20
     }
   ],
-  setChar: function () {
+  setChar: function() {
     for (var i = 0; i < this.characters.length; i++) {
       console.log(this.characters[i].name);
       var charSection = $("<div class='imageBox border'></div>");
@@ -65,49 +65,60 @@ var gameObj = {
       var img = $("<img class = 'charImg'>");
       img.attr("src", this.characters[i].imgSrc);
       var score = $("<p>" + this.characters[i].initScore + "</p>");
-      $("#mainCharSection").hide().fadeIn(1000).append(charSection).hide().fadeIn(2000);
+      $("#mainCharSection")
+        .hide()
+        .fadeIn(1000)
+        .append(charSection)
+        .hide()
+        .fadeIn(2000);
       charSection.append(name);
       charSection.append(img);
       charSection.append(score);
     }
   },
-  selectAttacker: function(){
-    $("#mainCharSection .imageBox").click(function () {
+  selectAttacker: function() {
+    $("#mainCharSection .imageBox").click(function(e) {
       $(".imageBox")
         .not(this)
-        .each(function () {
+        .each(function(e) {
           $(this).appendTo("#enemiesSection");
-          $(this).addClass("border-danger");
+          // $(this).addClass("border-danger");
           $(this)
-            .removeClass(".imageClass")
-            .addClass("movedImageBox");
+            .removeClass("imageBox")
+            .addClass("border-danger movedImageBox");
+          gameObj.selectDefender();
+          $(this).off("click");
+          // e.preventDefault();
         });
       $(this).appendTo("#myCharacterSection");
-      $(this).addClass("border-success");
-      $(this).removeClass(".imageClass");
+      $(this)
+        .removeClass("imageBox")
+        .addClass("border-success selectedImageBox");
+      // $(this).off("click");
+      e.preventDefault();
+      
     });
   },
-  selectDefender: function(){
-    $("#enemiesSection .movedImageBox").click(function (e) {
+  selectDefender: function() {
+    // $(".movedImageBox").on("click");
+    $(".movedImageBox").on("click", function(e) {
       e.preventDefault();
       $(".movedImageBox")
         .not(this)
-        .each(function () { });
+        .each(function() {});
       $(this).appendTo("#defenderSection");
     });
   },
-  gameInit: function(){
-      this.setChar();
-      $("#restart").hide();
-      $(".imageBox").addClass("bg-light");
-      this.selectAttacker();
-      this.selectDefender();
+  gameInit: function() {
+    this.setChar();
+    $("#restart").hide();
+    $(".imageBox").addClass("bg-light");
+    this.selectAttacker();
+    this.selectDefender();
   }
-}
+};
 
 // initiate the Game
-$(document).ready(function () {
+$(document).ready(function() {
   gameObj.gameInit();
 });
-
-

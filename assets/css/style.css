@@ -38,10 +38,12 @@ p {
     font-size-adjust: inherit;
   }
 
-  .imageBox {
+  .imageBox,
+  .selectedImageBox,
+  .movedImageBox {
     width: 23%;
     height: 23%;
-    max-width: 75%;
+    max-width: 100%;
     /* margin-top: 20px; */
     margin: 0;
   }
@@ -64,9 +66,9 @@ p {
   }
 
   @media only screen and (min-width: 200px) {
-      *{
-          font-size: 50%;
-      }
+    * {
+      font-size: 50%;
+    }
     #mainCharSection {
       width: 100%;
       /* max-width: 100%;  */
