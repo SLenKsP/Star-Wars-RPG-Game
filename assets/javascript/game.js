@@ -79,26 +79,23 @@ var gameObj = {
   selectAttacker: function() {
     $("#mainCharSection .imageBox").one("click", function(e) {
       e.preventDefault();
-
-      $(".imageBox")
-        .not(this)
-        .each(function(e) {
-          $(this).appendTo("#enemiesSection");
-          $(this).addClass("border-danger");
-          $(this)
-            .removeClass("imageBox")
-            .addClass("border-danger movedImageBox");
-          gameObj.selectDefender();
-          // gameObj.removeDefender();
-          // $(this).noop();
-          // // e.preventDefault();
-        });
-
       $(this).appendTo("#myCharacterSection");
       $(this)
         .removeClass("imageBox")
         .addClass("border-success selectedImageBox");
-
+      $(".imageBox").each(function(e) {
+        $(this).off("click");
+        $(this).appendTo("#enemiesSection");
+        $(this).addClass("border-danger");
+        $(this)
+          .removeClass("imageBox")
+          .addClass("border-danger movedImageBox");
+        // gameObj.selectDefender();
+        // gameObj.removeDefender();
+        // $(this).noop();
+        // // e.preventDefault();
+      });
+      gameObj.selectDefender();
       // $(this).off("click");
     });
   },
@@ -132,7 +129,7 @@ var gameObj = {
     $(".imageBox").addClass("bg-light");
     this.selectAttacker();
     this.removeDefender();
-    this.selectDefender();
+    // this.selectDefender();
   }
 };
 
