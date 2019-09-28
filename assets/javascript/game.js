@@ -77,37 +77,53 @@ var gameObj = {
     }
   },
   selectAttacker: function() {
-    $("#mainCharSection .imageBox").click(function(e) {
+    $("#mainCharSection .imageBox").one("click", function(e) {
+      e.preventDefault();
+
       $(".imageBox")
         .not(this)
         .each(function(e) {
           $(this).appendTo("#enemiesSection");
-          // $(this).addClass("border-danger");
+          $(this).addClass("border-danger");
           $(this)
             .removeClass("imageBox")
             .addClass("border-danger movedImageBox");
           gameObj.selectDefender();
-          $(this).off("click");
-          // e.preventDefault();
+          // gameObj.removeDefender();
+          // $(this).noop();
+          // // e.preventDefault();
         });
+
       $(this).appendTo("#myCharacterSection");
       $(this)
         .removeClass("imageBox")
         .addClass("border-success selectedImageBox");
+
       // $(this).off("click");
-      e.preventDefault();
     });
   },
   selectDefender: function() {
     // $(".movedImageBox").on("click");
+
     $(".movedImageBox").on("click", function(e) {
-      e.preventDefault();
+      // e.stopPropagation();
       $(".movedImageBox")
         .not(this)
         .each(function() {
-          $(this).off("click");
+          // $(this).noop();
         });
-      $(this).appendTo("#defenderSection");
+      if ($("#defenderSection > div").length === 0) {
+        $(this).appendTo("#defenderSection");
+      }
+      // ;
+      // $(this).remove();
+      // $(this).appendTo("#defenderSection");
+    });
+    return;
+  },
+  removeDefender: function() {
+    $("#defenderSection").on("click", function() {
+      $("#defenderSection .movedImageBox").remove();
     });
   },
   gameInit: function() {
@@ -115,6 +131,7 @@ var gameObj = {
     $("#restart").hide();
     $(".imageBox").addClass("bg-light");
     this.selectAttacker();
+    this.removeDefender();
     this.selectDefender();
   }
 };
