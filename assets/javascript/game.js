@@ -143,8 +143,10 @@ var gameObj = {
   // attacking logic
   attack: function() {
     $("#attackBtn").on("click", function() {
-      if ($("#defenderSection > div").length === 0) {
-        alert("select defender first");
+      if ($("#defenderSection > div").length === 0)
+      {
+        alert("Select a defender first!")
+        // $("#dialog").dialog();
       } else {
         damageToDefender = parseInt(gameObj.attackerPower());
         damageIncrement += damageToDefender;
@@ -195,7 +197,8 @@ var gameObj = {
     });
   },
   // game init function
-  gameInit: function() {
+  gameInit: function () {
+    $("#dialog").hide();
     this.setChar();
     $("#restart").hide();
     $(".imageBox").addClass("bg-light");
@@ -205,6 +208,7 @@ var gameObj = {
   }
 };
 // initiate the Game
-$(document).ready(function() {
+$(document).ready(function () {
+  
   gameObj.gameInit();
 });
