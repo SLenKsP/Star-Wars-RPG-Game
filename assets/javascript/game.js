@@ -1,3 +1,4 @@
+// variable
 var attackerScore = 0;
 var defenderScore = 0;
 var damageToDefender = 0;
@@ -7,7 +8,9 @@ var attackerStatus;
 var defenderStatus;
 var remainingEmenies = 2;
 var damageIncrement = 0;
+// game object
 var gameObj = {
+  // characters' property
   characters: [
     {
       name: "Obi Wan Kenobi",
@@ -38,6 +41,7 @@ var gameObj = {
       counterAttack: 20
     }
   ],
+  // setting up characters on html
   setChar: function() {
     for (var i = 0; i < this.characters.length; i++) {
       console.log(this.characters[i].name);
@@ -57,6 +61,7 @@ var gameObj = {
       charSection.append(score);
     }
   },
+  // select attacker
   selectAttacker: function() {
     $("#mainCharSection .imageBox").one("click", function(e) {
       e.preventDefault();
@@ -68,7 +73,7 @@ var gameObj = {
       $(".imageBox").each(function(e) {
         $(this).off("click");
         $(this).appendTo("#enemiesSection");
-        $(this).addClass("border-danger");
+        $(this).addClass("border-dark");
         $(this)
           .removeClass("imageBox bg-light")
           .addClass("border-danger movedImageBox bg-danger text-light");
@@ -76,6 +81,7 @@ var gameObj = {
       gameObj.selectDefender();
     });
   },
+  // select defender
   selectDefender: function() {
     $(".movedImageBox").on("click", function(e) {
       $(".movedImageBox")
@@ -87,11 +93,12 @@ var gameObj = {
         $(this)
           .removeClass("bg-light")
           .addClass("selectedDefender bg-dark text-light");
+        $("#winLossStatus").text("");
         console.log("remaining enemies count: " + remainingEmenies);
       }
-      $("#attackBtn").prop("enabled", true);
     });
   },
+  // getting attackers power
   attackerPower: function() {
     var attackerName = $("#myCharacterSection div p:first-child").text();
     for (var j = 0; j < gameObj.characters.length; j++) {
@@ -102,19 +109,23 @@ var gameObj = {
       }
     }
   },
+  // getting attacker's name
   attackerName: function() {
     return $("#myCharacterSection div p:first-child").text();
   },
+  // getting defender's name
   defenderName: function() {
     return $("#defenderSection .movedImageBox p:first-child").text();
   },
-
+  // getting attacker's score
   attackerScore: function() {
     return parseInt($("#myCharacterSection div p:last-child").text());
   },
+  // getting defender's score
   defenderScore: function() {
     return parseInt($("#defenderSection .movedImageBox p:last-child").text());
   },
+  // getting defenders counter attack power
   counterAttackPower: function() {
     var defenderName = $(
       "#defenderSection .movedImageBox p:first-child"
@@ -129,6 +140,7 @@ var gameObj = {
       }
     }
   },
+  // attacking logic
   attack: function() {
     $("#attackBtn").on("click", function() {
       if ($("#defenderSection > div").length === 0) {
@@ -151,9 +163,9 @@ var gameObj = {
         $("#defenderSection .movedImageBox p:last-child").text(defenderScore);
         if (attackerScore > 0 && defenderScore <= 0) {
           $("#defenderSection .movedImageBox").remove();
-          $("#winLossStatus").text("select another enemy");
+          $("#winLossStatus").text("Still More Enemies to Kill! Pick One...");
           if (remainingEmenies === 0) {
-            $("#winLossStatus").text("You won");
+            $("#winLossStatus").text("You Won! Click Restart to Play Again...");
             $("#attackBtn").hide();
             $("#restart").show();
           } else {
@@ -161,24 +173,28 @@ var gameObj = {
           }
           remainingEmenies--;
         } else if (attackerScore <= 0 && defenderScore > 0) {
-          $("#winLossStatus").text("you lose");
+          $("#winLossStatus").text("You Lost! Click Restart to Play Again...");
+          $("#myCharacterSection div").remove();
+          $("#enemiesSection div").remove();
           $("#restart").show();
           $("#attackBtn").hide();
         }
       }
     });
   },
+  // removing defender
   removeDefender: function() {
     $("#defenderSection").on("click", function() {
       $("#defenderSection .movedImageBox").remove();
     });
   },
-
+  // restart function
   clickRestart: function() {
     $("#restart").on("click", function() {
       location.reload();
     });
   },
+  // game init function
   gameInit: function() {
     this.setChar();
     $("#restart").hide();
@@ -188,7 +204,6 @@ var gameObj = {
     this.clickRestart();
   }
 };
-
 // initiate the Game
 $(document).ready(function() {
   gameObj.gameInit();
