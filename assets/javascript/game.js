@@ -143,8 +143,7 @@ var gameObj = {
   // attacking logic
   attack: function() {
     $("#attackBtn").on("click", function() {
-      if ($("#defenderSection > div").length === 0)
-      {
+      if ($("#defenderSection > div").length === 0){
         alert("Select a defender first!")
         // $("#dialog").dialog();
       } else {
@@ -180,13 +179,14 @@ var gameObj = {
           $("#enemiesSection div").remove();
           $("#restart").show();
           $("#attackBtn").hide();
-        } else if (attackerScore < 0 && defenderScore = 0){
-           $("#winLossStatus").text("Both Died!Game Over! Click Restart to Play Again...");
+        }  else if (attackerScore < 0 && defenderScore <= 0) {
+          $("#winLossStatus").text("Both Died!Game Over! Click Restart to Play Again...");
           $("#myCharacterSection div").remove();
           $("#enemiesSection div").remove();
           $("#restart").show();
           $("#attackBtn").hide();
-      }
+          $("#defenderSection .movedImageBox").remove();
+        }
       }
     });
   },
