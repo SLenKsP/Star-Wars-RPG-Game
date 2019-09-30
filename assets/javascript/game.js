@@ -180,14 +180,14 @@ var gameObj = {
           $("#enemiesSection div").remove();
           $("#restart").show();
           $("#attackBtn").hide();
-        } 
-        /*else if (attackerScore < 0 && defenderScore = 0){
+        } else if (attackerScore < 0 && defenderScore = 0){
            $("#winLossStatus").text("Both Died!Game Over! Click Restart to Play Again...");
           $("#myCharacterSection div").remove();
           $("#enemiesSection div").remove();
           $("#restart").show();
           $("#attackBtn").hide();
-      }*/
+      }
+      }
     });
   },
   // removing defender
